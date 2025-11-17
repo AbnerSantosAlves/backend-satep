@@ -5,8 +5,7 @@ from src.services.checar_agendamentos import checar_agendamentos, lembrar_confir
 from fastapi.middleware.cors import CORSMiddleware
 from src.router import rotas_usuario, rotas_paciente, rotas_agendamento, rotas_viagem, rotas_hospital, rotas_historico
 from src.services.checar_viagem import checar_viagens
-from src.infra.repositorios.usuario import RepositorioUsuario
-from src.infra.repositorios.hospital import RepositorioHospital
+
 
 criar_db()
 
@@ -33,8 +32,6 @@ def ping():
     return {"status": "alive"}
 
 
-RepositorioUsuario.criar_administrador()
-RepositorioHospital.criar_hospitais()
 
 # ROTAS DE USUÁRIO
 app.include_router(rotas_usuario.router)
