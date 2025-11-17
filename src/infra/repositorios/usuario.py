@@ -7,6 +7,18 @@ class RepositorioUsuario():
     def __init__(self, db: Session):
         self.db = db
 
+    
+    def criar_administrador(self):
+        administrador = models.Usuario(
+            nome = "Abner Santos Alves",
+            email = "abneralves562@gmail.com",
+            senha = "abner1234",
+            tipo = 0
+        )
+
+        self.db.add(administrador)
+        self.db.commit(administrador)
+        self.db.refresh(administrador)
 
     def createAdministrador(self, administrador: schemas.Usuario):
         administrador = models.Usuario(
