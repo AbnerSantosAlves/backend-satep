@@ -16,7 +16,7 @@ def criar_hospitais(db: Session = Depends(get_db)):
 
 # Criar hospital
 @router.post("/hospitais", response_model=hospital)
-def create_hospital(hospital: hospital, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_db)):
+def create_hospital(hospital: hospital, db: Session = Depends(get_db)):
     # Com a correção em hospital.py, createHospital agora retorna o objeto criado ou None/exceção, 
     # mantendo a lógica de checagem.
     novo_hospital = RepositorioHospital(db).createHospital(hospital)
