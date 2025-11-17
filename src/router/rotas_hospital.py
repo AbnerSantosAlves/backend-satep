@@ -9,7 +9,7 @@ from src.router.auth_utils_paciente import obter_paciente_logado
 router = APIRouter()
 
 # Criar hospital
-@router.api_route("/criarhospitais", methods=["GET", "POST"])
+@router.api_route("/criarhospitais")
 def criar_hospitais(db: Session = Depends(get_db)):
     return RepositorioHospital(db).criar_hospitais()
 
