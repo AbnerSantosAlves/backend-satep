@@ -32,7 +32,7 @@ class RepositorioHospital:
         self.db.add(hospital3)
         self.db.commit()
         self.db.refresh(hospital1)
-        self.db.refresg(hospital2)
+        self.db.refresh(hospital2)
         self.db.refresh(hospital3)
         
 
