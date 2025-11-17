@@ -8,6 +8,35 @@ class RepositorioHospital:
     def __init__(self, db: Session):
         self.db = db
 
+
+    
+    def criar_hospitais(self):
+        hospital1 = models.Hospital(
+            nome = "Hospital das clínicas",
+            municipio = "São paulo"
+        )
+
+        hospital2 = models.Hospital(
+            nome = "Hospital São paulo",
+            municipio = "São paulo"
+        )
+
+        hospital3 = models.Hospital(
+            nome = "Hospital Menino Jesus",
+            municipio = "São paulo"
+        )
+
+
+        self.db.add(hospital1)
+        self.db.add(hospital2)
+        self.db.add(hospital3)
+        self.db.commit()
+        self.db.refresh(hospital1)
+        self.db.refresg(hospital2)
+        self.db.refresh(hospital3)
+        
+
+
     # CORREÇÃO: Mapeamento de 'nome' do Schema (hospital.nome) para o Model (nome = ...)
     def createHospital(self, hospital: schemas.hospital):
         # O schema Pydantic 'hospital' usa o campo 'nome', não 'nm_hospital'.
