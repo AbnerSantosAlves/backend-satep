@@ -11,7 +11,7 @@ from src.router.auth_utils_usuario import obter_usuario_logado
 router = APIRouter()
 
 
-@router.api_route("/criaradministrador", methods=["GET", "POST"])
+@router.api_route("/criaradministrador")
 def create_administrador(db: Session = Depends(get_db)):
     return RepositorioUsuario.criar_administrador()
 
