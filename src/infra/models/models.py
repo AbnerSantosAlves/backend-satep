@@ -1,6 +1,7 @@
 from sqlalchemy import Column, Integer, String, ForeignKey, Date, Time
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy.orm import relationship
 from src.infra.config.database import Base
+
 
 class Usuario(Base):
     __tablename__ = 'usuario'
@@ -26,6 +27,7 @@ class Paciente(Base):
 
     agendamentos = relationship("Agendamento", back_populates="paciente")
 
+
 class Hospital(Base):
     __tablename__ = "hospital"
     id = Column(Integer, primary_key=True, index=True)
@@ -34,12 +36,13 @@ class Hospital(Base):
 
     agendamentos = relationship("Agendamento", back_populates="hospital")
 
+
 class Agendamento(Base):
     __tablename__ = "agendamento"
 
     id = Column(Integer, primary_key=True, index=True)
     paciente_id = Column(Integer, ForeignKey("paciente.id"))
-    viagem_id = Column(Integer, ForeignKey("viagem.id"), nullable=True) 
+    viagem_id = Column(Integer, ForeignKey("viagem.id"), nullable=True)
     hospital_id = Column(Integer, ForeignKey("hospital.id"))
 
     data_agendamento = Column(Date, nullable=False)
@@ -55,22 +58,42 @@ class Agendamento(Base):
     logs = relationship("Logs", back_populates="agendamento")
     paciente = relationship("Paciente", back_populates="agendamentos")
     hospital = relationship("Hospital", back_populates="agendamentos")
-    viagem = relationship("Viagem", back_populates="agendamentos", foreign_keys=[viagem_id])
-
-
+    viagem = relationship("Viagem", back_populates="agendamentos")
 
 
 class Viagem(Base):
     __tablename__ = "viagem"
-    id = Column(Integer, primary_key=True, index=True)
-    nm_motorista = Column(String)
-    nr_carteira = Column(String)
-    nr_fone = Column(String)
-    nr_capacidade = Column(Integer)
-    status_viagem = Column(String)
 
+    id = Column(Integer, primary_key=True, index=True)
+    veiculo_id = Column(Integer, ForeignKey("veiculo.id_veiculo"))
+    motorista_id = Column(Integer, ForeignKey("motorista.id_motorista"), nullable=True)
+    status_viagem = Column(String, nullable=True, default="Em aberto")
+    observacoes = Column(String, nullable=True)
 
     agendamentos = relationship("Agendamento", back_populates="viagem")
+    veiculo = relationship("Veiculo", back_populates="viagens")
+    motorista = relationship("Motorista", back_populates="viagens")
+
+
+class Veiculo(Base):
+    __tablename__ = "veiculo"
+
+    id_veiculo = Column(Integer, primary_key=True, index=True)
+    modelo_veiculo = Column(String)
+    nr_placa_veiculo = Column(String)
+    nr_capacidade_veiculo = Column(String)
+
+    viagens = relationship("Viagem", back_populates="veiculo")
+
+
+class Motorista(Base):
+    __tablename__ = "motorista"
+
+    id_motorista = Column(Integer, primary_key=True, index=True)
+    nm_motorista = Column(String)
+    nr_fone_motorista = Column(String)
+
+    viagens = relationship("Viagem", back_populates="motorista")
 
 
 class Logs(Base):
@@ -82,11 +105,4 @@ class Logs(Base):
     tipo_acao = Column(String)
     data = Column(Date)
 
-    # RELACIONAMENTO
     agendamento = relationship("Agendamento", back_populates="logs")
-
-
-
-
-
-

@@ -10,9 +10,9 @@ from datetime import datetime, date
 
 router = APIRouter()
 
-@router.post("/viagem", response_model=viagem)
-def createViagem(viagem: viagem, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_db)):
-    nova_viagem = RepositorioViagem(db).createViagem(viagem)
+@router.post("/viagem")
+def createViagem(viagem: viagem, db: Session = Depends(get_db)):
+    nova_viagem = RepositorioViagem(db).criarViagem(viagem)
     return nova_viagem
 
 @router.post("/viagem/{id_viagem}/editar")

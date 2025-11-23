@@ -7,6 +7,7 @@ def checar_viagens(db: Session):
     agora = datetime.now().date()
     mensagens = []
 
+
     for vi in viagens:
         agendamentos = (
             db.query(models.Agendamento)

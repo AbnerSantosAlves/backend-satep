@@ -48,16 +48,33 @@ class AlteracaoStatusAgendamento(BaseModel):
     status_agendamento: str
 
 
+
 class viagem(BaseModel):
-    id: Optional[int] = None
-    nm_motorista: str
-    nr_carteira: str
-    nr_fone: str
-    nr_capacidade: int
-    status_viagem: Optional[str] = "Em andamento"
+    veiculo_id: int
+    motorista_id: int
 
     class Config:
         from_attributes = True
+
+
+class motorista(BaseModel):
+    id_motorista: Optional[int] = None
+    nm_motorista: str
+    nr_fone_motorista: str
+
+    class Config:
+        from_attributes = True
+
+
+class veiculo(BaseModel):
+    id_veiculo: Optional[int] = None
+    modelo_veiculo: str 
+    nr_placa_veiculo: str   
+    nr_capacidade_veiculo: str 
+
+    class Config:
+        from_attributes = True
+    
 
 
 # CORRIGIDO: Adicionado Field(alias="nome") para mapear o campo 'nome' do ORM 

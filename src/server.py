@@ -3,11 +3,9 @@ from src.infra.config.database import get_db, criar_db
 from apscheduler.schedulers.background import BackgroundScheduler
 from src.services.checar_agendamentos import checar_agendamentos, lembrar_confirmacao
 from fastapi.middleware.cors import CORSMiddleware
-from src.router import rotas_usuario, rotas_paciente, rotas_agendamento, rotas_viagem, rotas_hospital, rotas_historico
+from src.router import rotas_usuario, rotas_paciente, rotas_agendamento, rotas_viagem, rotas_hospital, rotas_historico, rotas_motorista, rotas_veiculo
 from src.services.checar_viagem import checar_viagens
 
-
-criar_db()
 
 app = FastAPI()
 app.add_middleware(
@@ -53,3 +51,10 @@ app.include_router(rotas_hospital.router)
 
 
 app.include_router(rotas_historico.router)
+
+
+# ROTAS DE MOTORISTA
+app.include_router(rotas_motorista.router)
+
+# ROTAS DE VEICULO
+app.include_router(rotas_veiculo.router)
