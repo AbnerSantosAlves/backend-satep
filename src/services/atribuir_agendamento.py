@@ -28,7 +28,8 @@ def atribuir_agendamento(db: Session, agendamento_id: int):
         ).count()
 
         veiculo = db.query(models.Veiculo).filter(models.Veiculo.id_veiculo == viagem.veiculo_id).first()
-        if total_agendamentos_data < veiculo.nr_capacidade_veiculo:
+        capacidade_veiculo = int(veiculo.nr_capacidade_veiculo)
+        if total_agendamentos_data < capacidade_veiculo:
             agendamento.viagem_id = viagem.id
             agendamento.status_agendamento = "Agendado"
 
