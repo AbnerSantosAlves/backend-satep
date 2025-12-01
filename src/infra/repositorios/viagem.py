@@ -152,3 +152,9 @@ class RepositorioViagem:
             } if veiculo else None,
             "agendamentos": ags
         }
+
+    def deletarViagem(self, viagem_id: id):
+        viagem = self.db.query(models.Viagem).filter(models.Viagem.id == viagem_id).first()
+        self.db.delete(viagem)
+        self.db.commit()
+        return {"message": "Viagem deletada com sucesso"}

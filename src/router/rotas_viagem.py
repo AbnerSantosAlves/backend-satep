@@ -40,3 +40,7 @@ def getViagemDetail(id_viagem: int, usuario: Usuario = Depends(obter_usuario_log
     if not vi:
         raise HTTPException(status_code=404, detail="Viagem não encontrada.")
     return vi
+
+@router.delete("/viagem/{id_viagem}/excluir")
+def deletarViagem(id_viagem, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_db)):
+    return RepositorioViagem(db).deletarViagem(id_viagem)
