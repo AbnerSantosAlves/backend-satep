@@ -145,3 +145,18 @@ class RepositorioAgendamento:
         self.db.commit()
         self.db.refresh(ag)
         return {"message": "Agendamento cancelado"}
+    
+    def agendamentosCancelados(self, paciente_id):
+        agendamentos = self.db.query(models.Agendamento).filter(models.Agendamento.paciente_id == paciente_id and models.Agendamento.status_agendamento == "Cancelado").all()
+
+        return agendamentos
+    
+    def agendamentosFinalizados(self, paciente_id):
+        agendamentos = self.db.query(models.Agendamento).filter(models.Agendamento.paciente_id == paciente_id and models.Agendamento.status_agendamento == "Finalizado").all()
+
+        return agendamentos
+    
+    def agendamentosRecusados(self, paciente_id):
+        agendamentos = self.db.query(models.Agendamento).filter(models.Agendamento.paciente_id == paciente_id and models.Agendamento.status_agendamento == "Recusado").all()
+
+        return agendamentos

@@ -98,3 +98,16 @@ def cancelarAgendamento(
 @router.post("/agendamento/disponibilidade/{id_agendamento}")
 def verificarDisponibilidade(id_agendamento: int, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_db)):
     return verificar_vaga(db, id_agendamento)
+
+
+@router.get("/agendamento/cancelados")
+def agendamentosCancelados(self, paciente: Paciente = Depends(obter_paciente_logado), db: Session = Depends(get_db)):
+    return RepositorioAgendamento(db).agendamentosCancelados(paciente_id=paciente.id)
+
+@router.get("/agendamento/finalizados")
+def agendamentosFinalizados(self, paciente: Paciente = Depends(obter_paciente_logado), db: Session = Depends(get_db)):
+    return RepositorioAgendamento(db).agendamentosFinalizados(paciente_id=paciente.id)
+
+@router.get("/agendamento/recusados")
+def agendamentosRecusados(self, paciente: Paciente = Depends(obter_paciente_logado), db: Session = Depends(get_db)):
+    return RepositorioAgendamento(db).agendamentosRecusados(paciente_id=paciente.id)
