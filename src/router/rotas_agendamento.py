@@ -9,6 +9,7 @@ from src.router.auth_utils_usuario import obter_usuario_logado
 from src.router.auth_utils_paciente import obter_paciente_logado
 from datetime import date, datetime
 from src.infra.schema.schemas import AgendamentoCreate
+from src.services.verificar_vaga import verificar_vaga
 
 from src.infra.schema import schemas
 
@@ -92,3 +93,8 @@ def cancelarAgendamento(
     db: Session = Depends(get_db)
 ):
     return RepositorioAgendamento(db).cancelarAgendamento(id_agendamento, paciente.id)
+
+
+@router.post("/agendamento/disponibilidade/{idd_agendamento}"):
+def verificarDisponibilidade(id_agendamento: int, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_db)):
+    return verificar_vaga(db, id_agendamento)
