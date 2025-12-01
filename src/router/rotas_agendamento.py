@@ -95,6 +95,6 @@ def cancelarAgendamento(
     return RepositorioAgendamento(db).cancelarAgendamento(id_agendamento, paciente.id)
 
 
-@router.post("/agendamento/disponibilidade/{idd_agendamento}")
+@router.post("/agendamento/disponibilidade/{id_agendamento}")
 def verificarDisponibilidade(id_agendamento: int, usuario: Usuario = Depends(obter_usuario_logado), db: Session = Depends(get_db)):
     return verificar_vaga(db, id_agendamento)
