@@ -1,0 +1,10 @@
+fastapi
+uvicorn
+sqlalchemy
+alembic
+pydantic
+pwdlib[argon2]
+python-dotenv
+psycopg2-binary
+apscheduler
+python-jose[cryptography]
